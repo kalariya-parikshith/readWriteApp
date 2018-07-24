@@ -1,0 +1,24 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: kp-pod
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kp-container
+    spec:
+      volumes:
+      - name: kp-storage
+        persistentVolumeClaim:
+         claimName: kp-claim
+      containers:
+      - name: kp-container
+        image: parikshith/kpwrite:1
+        volumeMounts:
+        - mountPath: "/data"
+          name: kp-storage
+
+
+
